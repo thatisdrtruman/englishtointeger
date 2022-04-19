@@ -6,15 +6,21 @@ from errno import ENFILE
 unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, "":0}
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
 tydict={"twenty":2, "thirty":3, "fourty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
-
+badword=["zero", "negative", "minus","point", "decimal", "dot", "quadrillion", "quintillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion","tredecillion", "quattuordecillion", "quindecillion", "sexdecillion","septendecillion","octodecillion", "novemdecillion","vigintillion"]
 
 def EnglishToInteger(englishNumber: Str) -> int:
-    if not type(englishNumber) is str or "zero" in englishNumber or "minus" in englishNumber or "negative" in englishNumber:
-        return ValueError
+    
+    if not type(englishNumber) is str or englishNumber.isnumeric():
+        raise ValueError("This is not a lettered number")
+        return -1
     commaremoved=englishNumber.replace(',',"")
     andremoved=commaremoved.replace('and', "")
     dashremoved=andremoved.replace('-', " ")
     wordlist=dashremoved.split()
+    for word in wordlist:
+        if word in badword:
+            raise ValueError("We can't accept this number")
+            return -1
     numlist= [0] * 15
 
     #trillion segment
@@ -136,7 +142,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
 
     #hundreds segment
     k=len(wordlist)
-    print(k)
     if "hundred" in wordlist:
         numlist[12]=unitdict[wordlist[0]]
         if k == 4: #if the numlist is in 4 words: [hundred number], ['hundred'], [ty number], [unit number]
@@ -175,5 +180,3 @@ def EnglishToInteger(englishNumber: Str) -> int:
     resultnumber="".join(map(str,numlist))
     print(resultnumber)
     return resultnumber
-
-EnglishToInteger("fourteen billion, six hundred and fifty-five")
