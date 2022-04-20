@@ -1,12 +1,17 @@
 from ast import Str
 from errno import ENFILE
 
-
-
 unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, "":0}
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
 tydict={"twenty":2, "thirty":3, "fourty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
-badword=["zero", "negative", "minus","point", "decimal", "dot", "quadrillion", "quintillion", "quintillion", "sextillion", "septillion", "octillion", "nonillion", "decillion", "undecillion", "duodecillion","tredecillion", "quattuordecillion", "quindecillion", "sexdecillion","septendecillion","octodecillion", "novemdecillion","vigintillion"]
+goodword=["hundred", "thous", "million", "billion", "trillion", "and"]
+for unit in unitdict.keys():
+    goodword.append(unit)
+for ten in tendict.keys():
+    goodword.append(ten)
+for ty in tydict.keys():
+    goodword.append(ty)
+
 
 def EnglishToInteger(englishNumber: Str) -> int:
     
@@ -18,7 +23,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
     dashremoved=andremoved.replace('-', " ")
     wordlist=dashremoved.split()
     for word in wordlist:
-        if word in badword:
+        if not word in goodword:
             raise ValueError("We can't accept this number")
             return -1
     numlist= [0] * 15
@@ -46,7 +51,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
         if wordlist[0] in unitdict and not wordlist[1] == "hundred":
             numlist[2]=unitdict[wordlist[0]]
         
-
         while True:
             if wordlist[0]== "trillion":
                 wordlist.pop(0)
@@ -169,7 +173,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
         if wordlist[0] in unitdict:
             numlist[14]=unitdict[wordlist[0]]
 
-
     while True:
         if numlist[0] == 0:
             numlist.pop(0)
@@ -180,3 +183,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
     resultnumber="".join(map(str,numlist))
     print(resultnumber)
     return resultnumber
+
+EnglishToInteger("foursasdf")
+
