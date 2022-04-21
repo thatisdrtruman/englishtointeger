@@ -185,4 +185,12 @@ def EnglishToInteger(englishNumber: Str) -> int:
     return resultnumber
 
 EnglishToInteger("foursasdf")
-
+EnglishToInteger("12425")
+EnglishToInteger("fourteen billion, six hundred and seven thousand, two hundred and seventy-five")
+EnglishToInteger("nine hundred and fifty-eight trillion, five hundred and twelve billion, two million, six hundred and seven thousand, two hundred and seventy-five")
+EnglishToInteger("seventy-five")
+EnglishToInteger("seventy")
+EnglishToInteger("seventeen")
+EnglishToInteger("five")
+EnglishToInteger("one hundred and seven")
+EnglishToInteger("seventy thousand, and one")
