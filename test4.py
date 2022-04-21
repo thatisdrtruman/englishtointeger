@@ -4,7 +4,7 @@ from unittest import result
 
 unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, "":0}
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
-tydict={"twenty":2, "thirty":3, "fourty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
+tydict={"twenty":2, "thirty":3, "forty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
 goodword=["hundred", "thous", "million", "billion", "trillion"]
 for unit in unitdict.keys():
     goodword.append(unit)
