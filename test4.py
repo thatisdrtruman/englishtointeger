@@ -5,7 +5,7 @@ from unittest import result
 unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, "":0}
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
 tydict={"twenty":2, "thirty":3, "forty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
-goodword=["hundred", "thous", "million", "billion", "trillion"]
+goodword=["hundred", "thousand", "million", "billion", "trillion"]
 for unit in unitdict.keys():
     goodword.append(unit)
 for ten in tendict.keys():
@@ -19,9 +19,10 @@ def EnglishToInteger(englishNumber: Str) -> int:
         raise ValueError("This is not a lettered number")
         return -1
     commaremoved=englishNumber.replace(',',"")
-    andremoved=commaremoved.replace('and', "")
+    andremoved=commaremoved.replace(' and', "")
     dashremoved=andremoved.replace('-', " ")
     wordlist=dashremoved.split()
+    print(wordlist)
     for word in wordlist:
         if not word in goodword:
             raise ValueError("We can't accept this number")
@@ -191,7 +192,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
                 numlist[11]=unitdict[wordlist[0]]
 
         while True:
-            if wordlist[0]== "thous":
+            if wordlist[0]== "thousand":
                 wordlist.pop(0)
                 break
             wordlist.pop(0)
@@ -237,14 +238,15 @@ def EnglishToInteger(englishNumber: Str) -> int:
     resultnumber=int()
     resultnumber="".join(map(str,numlist))
     resultnumber=int(resultnumber, base=10)
+    print(resultnumber)
     return resultnumber
 
-print(EnglishToInteger("four"))
+EnglishToInteger("four")
 EnglishToInteger("two hundred trillion and seventy-two")
 EnglishToInteger("twenty trillion")
 EnglishToInteger("twenty billion")
 EnglishToInteger("twenty million")
-EnglishToInteger("twenty thousand")
+EnglishToInteger("two hundred and twenty thousand, seven hundred and forty-five")
 EnglishToInteger("eleven trillion")
 EnglishToInteger("eleven billion")
 EnglishToInteger("eleven million")
@@ -253,5 +255,4 @@ EnglishToInteger("six trillion")
 EnglishToInteger("six billion")
 EnglishToInteger("six million")
 EnglishToInteger("six thousand")
-
-EnglishToInteger("y")
+EnglishToInteger("two thous")
