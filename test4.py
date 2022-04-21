@@ -6,22 +6,17 @@ unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
 tydict={"twenty":2, "thirty":3, "forty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
 goodword=["hundred", "thousand", "million", "billion", "trillion"]
-for unit in unitdict.keys():
-    goodword.append(unit)
-for ten in tendict.keys():
-    goodword.append(ten)
-for ty in tydict.keys():
-    goodword.append(ty)
+for unit in unitdict.keys(): goodword.append(unit)
+for ten in tendict.keys(): goodword.append(ten)
+for ty in tydict.keys(): goodword.append(ty)
 
 def EnglishToInteger(englishNumber: Str) -> int:
-    if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and" or englishNumber == "":
+    if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and" or englishNumber == "" or englishNumber.isspace():
         raise ValueError("This is not a lettered number")
-        return -1
     wordlist=englishNumber.replace(',',"").lower().replace(' and', "").replace('-', " ").split()
     for word in wordlist:
         if not word in goodword:
             raise ValueError("We can't accept this number")
-            return -1
     numlist= [0] * 15
 
     #trillion segment
@@ -29,9 +24,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
     if "trillion" in englishNumber:
         if englishNumber == "trillion":
             raise ValueError("We can't accept this number")
-            return -1
-        if wordlist[1] == "hundred":
-            numlist[0]=unitdict[wordlist[0]] #
+        if wordlist[1] == "hundred": numlist[0]=unitdict[wordlist[0]] #
         if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
             if wordlist[0] in tydict:
                 numlist[1]=tydict[wordlist[0]]
@@ -71,10 +64,8 @@ def EnglishToInteger(englishNumber: Str) -> int:
     if "billion" in englishNumber:
         if englishNumber == "billion":
             raise ValueError("We can't accept this number")
-            return -1
-        if wordlist[1] == "hundred":
-            numlist[3]=unitdict[wordlist[0]]
-        if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
+        if wordlist[1] == "hundred": numlist[3]=unitdict[wordlist[0]]
+        if k == 2:
             if wordlist[0] in tydict:
                 numlist[4]=tydict[wordlist[0]]
             if wordlist[0] in tendict:
@@ -113,9 +104,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
     if "million" in englishNumber:
         if englishNumber == "million":
             raise ValueError("We can't accept this number")
-            return -1
-        if wordlist[1] == "hundred":
-            numlist[6]=unitdict[wordlist[0]] #
+        if wordlist[1] == "hundred": numlist[6]=unitdict[wordlist[0]] #
         if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
             if wordlist[0] in tydict:
                 numlist[7]=tydict[wordlist[0]]
@@ -155,9 +144,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
     if "thousand" in englishNumber:
         if englishNumber == "thousand":
             raise ValueError("We can't accept this number")
-            return -1
-        if wordlist[1] == "hundred":
-            numlist[9]=unitdict[wordlist[0]]
+        if wordlist[1] == "hundred": numlist[9]=unitdict[wordlist[0]]
         if k == 2:
             if wordlist[0] in tydict:
                 numlist[10]=tydict[wordlist[0]]
@@ -197,7 +184,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
     if "hundred" in wordlist:
         if englishNumber == "hundred":
             raise ValueError("We can't accept this number")
-            return -1
         numlist[12]=unitdict[wordlist[0]]
         if k == 4: #if the numlist is in 4 words: [hundred number], ['hundred'], [ty number], [unit number]
             if wordlist[2] in tydict:
@@ -230,25 +216,22 @@ def EnglishToInteger(englishNumber: Str) -> int:
         else:
             break
         
-    resultnumber=int()
-    resultnumber="".join(map(str,numlist))
-    resultnumber=int(resultnumber, base=10)
+    resultnumber=int("".join(map(str,numlist)), base=10)
     print(resultnumber)
     return resultnumber
 
-EnglishToInteger("four")
-EnglishToInteger("two hundred trillion and seventy-two")
-EnglishToInteger("TwentY trillion")
+EnglishToInteger("four"), EnglishToInteger("two hundred trillion and seventy-two")
+EnglishToInteger("TwentY trillion AND eight")
 EnglishToInteger("twenty billion")
 EnglishToInteger("twenty million")
 EnglishToInteger("two hundred and twenty thousand, seven hundred and forty-five")
-EnglishToInteger("eleven trillion")
+EnglishToInteger("eleven trillion and seventeen")
 EnglishToInteger("eleven billion")
 EnglishToInteger("eleven million")
-EnglishToInteger("eleven thousand")
+EnglishToInteger("eleven thousand, one hundred")
 EnglishToInteger("six trillion")
 EnglishToInteger("six billion")
 EnglishToInteger("six million")
 EnglishToInteger("six thousand")
 EnglishToInteger("six")
-EnglishToInteger("twain")
+EnglishToInteger("i guess")
