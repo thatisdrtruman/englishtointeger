@@ -15,8 +15,7 @@ for ty in tydict.keys():
 
 
 def EnglishToInteger(englishNumber: Str) -> int:
-    
-    if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and":
+    if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and" or englishNumber == "":
         raise ValueError("This is not a lettered number")
         return -1
     commaremoved=englishNumber.replace(',',"")
@@ -32,6 +31,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #trillion segment
     k=len(wordlist)
     if "trillion" in englishNumber:
+        if englishNumber == "trillion":
+            raise ValueError("We can't accept this number")
+            return -1
         if wordlist[1] == "hundred":
             numlist[0]=unitdict[wordlist[0]] #
         if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
@@ -71,6 +73,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #billions segment
     k=len(wordlist)        
     if "billion" in englishNumber:
+        if englishNumber == "billion":
+            raise ValueError("We can't accept this number")
+            return -1
         if wordlist[1] == "hundred":
             numlist[3]=unitdict[wordlist[0]]
         if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
@@ -110,6 +115,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #millions segment
     k=len(wordlist)
     if "million" in englishNumber:
+        if englishNumber == "million":
+            raise ValueError("We can't accept this number")
+            return -1
         if wordlist[1] == "hundred":
             numlist[6]=unitdict[wordlist[0]] #
         if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
@@ -149,6 +157,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #thousands segment
     k=len(wordlist)
     if "thousand" in englishNumber:
+        if englishNumber == "thousand":
+            raise ValueError("We can't accept this number")
+            return -1
         if wordlist[1] == "hundred":
             numlist[9]=unitdict[wordlist[0]]
         if k == 2:
@@ -188,6 +199,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #hundreds segment
     k=len(wordlist)
     if "hundred" in wordlist:
+        if englishNumber == "hundred":
+            raise ValueError("We can't accept this number")
+            return -1
         numlist[12]=unitdict[wordlist[0]]
         if k == 4: #if the numlist is in 4 words: [hundred number], ['hundred'], [ty number], [unit number]
             if wordlist[2] in tydict:
@@ -223,10 +237,9 @@ def EnglishToInteger(englishNumber: Str) -> int:
     resultnumber=int()
     resultnumber="".join(map(str,numlist))
     resultnumber=int(resultnumber, base=10)
-    print(resultnumber)
     return resultnumber
 
-EnglishToInteger("four")
+print(EnglishToInteger("four"))
 EnglishToInteger("two hundred trillion and seventy-two")
 EnglishToInteger("twenty trillion")
 EnglishToInteger("twenty billion")
@@ -240,3 +253,5 @@ EnglishToInteger("six trillion")
 EnglishToInteger("six billion")
 EnglishToInteger("six million")
 EnglishToInteger("six thousand")
+
+EnglishToInteger("y")
