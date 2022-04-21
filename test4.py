@@ -13,16 +13,11 @@ for ten in tendict.keys():
 for ty in tydict.keys():
     goodword.append(ty)
 
-
 def EnglishToInteger(englishNumber: Str) -> int:
     if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and" or englishNumber == "":
         raise ValueError("This is not a lettered number")
         return -1
-    commaremoved=englishNumber.replace(',',"")
-    andremoved=commaremoved.replace(' and', "")
-    dashremoved=andremoved.replace('-', " ")
-    wordlist=dashremoved.split()
-    print(wordlist)
+    wordlist=englishNumber.replace(',',"").lower().replace(' and', "").replace('-', " ").split()
     for word in wordlist:
         if not word in goodword:
             raise ValueError("We can't accept this number")
@@ -243,7 +238,7 @@ def EnglishToInteger(englishNumber: Str) -> int:
 
 EnglishToInteger("four")
 EnglishToInteger("two hundred trillion and seventy-two")
-EnglishToInteger("twenty trillion")
+EnglishToInteger("TwentY trillion")
 EnglishToInteger("twenty billion")
 EnglishToInteger("twenty million")
 EnglishToInteger("two hundred and twenty thousand, seven hundred and forty-five")
@@ -255,4 +250,5 @@ EnglishToInteger("six trillion")
 EnglishToInteger("six billion")
 EnglishToInteger("six million")
 EnglishToInteger("six thousand")
-EnglishToInteger("two thous")
+EnglishToInteger("six")
+EnglishToInteger("twain")
