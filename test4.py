@@ -1,10 +1,11 @@
 from ast import Str
 from errno import ENFILE
+from unittest import result
 
 unitdict={"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9, "":0}
 tendict={"ten":0, "eleven":1,"twelve":2, "thirteen":3, "fourteen":4, "fifteen":5, "sixteen":6, "seventeen":7, "eighteen":8, "nineteen":9} # the ten digit will always be 1
 tydict={"twenty":2, "thirty":3, "fourty":4, "fifty":5, "sixty":6, "seventy":7, "eighty":8, "ninety":9}
-goodword=["hundred", "thous", "million", "billion", "trillion", "and"]
+goodword=["hundred", "thous", "million", "billion", "trillion"]
 for unit in unitdict.keys():
     goodword.append(unit)
 for ten in tendict.keys():
@@ -15,7 +16,7 @@ for ty in tydict.keys():
 
 def EnglishToInteger(englishNumber: Str) -> int:
     
-    if not type(englishNumber) is str or englishNumber.isnumeric():
+    if not type(englishNumber) is str or englishNumber.isnumeric() or englishNumber == "and":
         raise ValueError("This is not a lettered number")
         return -1
     commaremoved=englishNumber.replace(',',"")
@@ -181,11 +182,10 @@ def EnglishToInteger(englishNumber: Str) -> int:
         
     resultnumber=int()
     resultnumber="".join(map(str,numlist))
+    resultnumber=int(resultnumber, base=10)
     print(resultnumber)
     return resultnumber
 
-EnglishToInteger("foursasdf")
-EnglishToInteger("12425")
 EnglishToInteger("fourteen billion, six hundred and seven thousand, two hundred and seventy-five")
 EnglishToInteger("nine hundred and fifty-eight trillion, five hundred and twelve billion, two million, six hundred and seven thousand, two hundred and seventy-five")
 EnglishToInteger("seventy-five")
@@ -194,3 +194,5 @@ EnglishToInteger("seventeen")
 EnglishToInteger("five")
 EnglishToInteger("one hundred and seven")
 EnglishToInteger("seventy thousand, and one")
+EnglishToInteger("foursasdf")
+EnglishToInteger("12425")
