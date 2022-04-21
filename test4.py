@@ -30,27 +30,37 @@ def EnglishToInteger(englishNumber: Str) -> int:
     numlist= [0] * 15
 
     #trillion segment
+    k=len(wordlist)
     if "trillion" in englishNumber:
         if wordlist[1] == "hundred":
             numlist[0]=unitdict[wordlist[0]] #
-        if wordlist[2] in tydict:
-            numlist[1]=tydict[wordlist[2]]
-            if wordlist[3] in unitdict:
-                numlist[2]=unitdict[wordlist[3]]
-        elif wordlist[2] in tendict:
-            numlist[1]=1
-            numlist[2]=tendict[wordlist[2]]
-        elif wordlist[2] in unitdict:
-            numlist[2]=unitdict[wordlist[2]]
-        if wordlist[0] in tydict:
-            numlist[1]=tydict[wordlist[0]]
-            if wordlist[1] in unitdict:
-                numlist[2]=unitdict[wordlist[1]]
-        elif wordlist[0] in tendict:
-            numlist[1]=1
-            numlist[2]=tendict[wordlist[0]]
-        if wordlist[0] in unitdict and not wordlist[1] == "hundred":
-            numlist[2]=unitdict[wordlist[0]]
+        if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
+            if wordlist[0] in tydict:
+                numlist[1]=tydict[wordlist[0]]
+            if wordlist[0] in tendict:
+                numlist[1]=1
+                numlist[2]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict:
+                numlist[2]=unitdict[wordlist[0]]
+        else:
+            if wordlist[2] in tydict:
+                numlist[1]=tydict[wordlist[2]]
+                if wordlist[3] in unitdict:
+                    numlist[2]=unitdict[wordlist[3]]
+            elif wordlist[2] in tendict:
+                numlist[1]=1
+                numlist[2]=tendict[wordlist[2]]
+            elif wordlist[2] in unitdict:
+                numlist[2]=unitdict[wordlist[2]]
+            if wordlist[0] in tydict:
+                numlist[1]=tydict[wordlist[0]]
+                if wordlist[1] in unitdict:
+                    numlist[2]=unitdict[wordlist[1]]
+            elif wordlist[0] in tendict:
+                numlist[1]=1
+                numlist[2]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict and not wordlist[1] == "hundred":
+                numlist[2]=unitdict[wordlist[0]]
         
         while True:
             if wordlist[0]== "trillion":
@@ -58,28 +68,38 @@ def EnglishToInteger(englishNumber: Str) -> int:
                 break
             wordlist.pop(0)
             
-    #billions segment        
+    #billions segment
+    k=len(wordlist)        
     if "billion" in englishNumber:
         if wordlist[1] == "hundred":
-            numlist[3]=unitdict[wordlist[0]] #
-        if wordlist[2] in tydict:
-            numlist[4]=tydict[wordlist[2]]
-            if wordlist[3] in unitdict:
-                numlist[5]=unitdict[wordlist[3]]
-        elif wordlist[2] in tendict:
-            numlist[4]=1
-            numlist[5]=tendict[wordlist[2]]
-        elif wordlist[2] in unitdict:
-            numlist[5]=unitdict[wordlist[2]]
-        if wordlist[0] in tydict:
-            numlist[4]=tydict[wordlist[0]]
-            if wordlist[1] in unitdict:
-                numlist[5]=unitdict[wordlist[1]]
-        elif wordlist[0] in tendict:
-            numlist[4]=1
-            numlist[5]=tendict[wordlist[0]]
-        if wordlist[0] in unitdict and not wordlist[1] == "hundred":
-            numlist[5]=unitdict[wordlist[0]]
+            numlist[3]=unitdict[wordlist[0]]
+        if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
+            if wordlist[0] in tydict:
+                numlist[4]=tydict[wordlist[0]]
+            if wordlist[0] in tendict:
+                numlist[4]=1
+                numlist[5]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict:
+                numlist[5]=unitdict[wordlist[0]]
+        else:
+            if wordlist[2] in tydict:
+                numlist[4]=tydict[wordlist[2]]
+                if wordlist[3] in unitdict:
+                    numlist[5]=unitdict[wordlist[3]]
+            elif wordlist[2] in tendict:
+                numlist[4]=1
+                numlist[5]=tendict[wordlist[2]]
+            elif wordlist[2] in unitdict:
+                numlist[5]=unitdict[wordlist[2]]
+            if wordlist[0] in tydict:
+                numlist[4]=tydict[wordlist[0]]
+                if wordlist[1] in unitdict:
+                    numlist[5]=unitdict[wordlist[1]]
+            elif wordlist[0] in tendict:
+                numlist[4]=1
+                numlist[5]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict and not wordlist[1] == "hundred":
+                numlist[5]=unitdict[wordlist[0]]
 
         while True:
             if wordlist[0]== "billion":
@@ -88,27 +108,37 @@ def EnglishToInteger(englishNumber: Str) -> int:
             wordlist.pop(0)
 
     #millions segment
+    k=len(wordlist)
     if "million" in englishNumber:
         if wordlist[1] == "hundred":
             numlist[6]=unitdict[wordlist[0]] #
-        if wordlist[2] in tydict:
-            numlist[7]=tydict[wordlist[2]]
-            if wordlist[3] in unitdict:
-                numlist[8]=unitdict[wordlist[3]]
-        elif wordlist[2] in tendict:
-            numlist[7]=1
-            numlist[8]=tendict[wordlist[2]]
-        elif wordlist[2] in unitdict:
-            numlist[8]=unitdict[wordlist[2]]
-        if wordlist[0] in tydict:
-            numlist[7]=tydict[wordlist[0]]
-            if wordlist[1] in unitdict:
-                numlist[8]=unitdict[wordlist[1]]
-        elif wordlist[0] in tendict:
-            numlist[7]=1
-            numlist[8]=tendict[wordlist[0]]
-        if wordlist[0] in unitdict and not wordlist[1] == "hundred":
-            numlist[8]=unitdict[wordlist[0]]
+        if k == 2:   #if the word is 2 words long (either 1-19 or [number]0 trillion)
+            if wordlist[0] in tydict:
+                numlist[7]=tydict[wordlist[0]]
+            if wordlist[0] in tendict:
+                numlist[7]=1
+                numlist[8]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict:
+                numlist[8]=unitdict[wordlist[0]]
+        else:
+            if wordlist[2] in tydict:
+                numlist[7]=tydict[wordlist[2]]
+                if wordlist[3] in unitdict:
+                    numlist[8]=unitdict[wordlist[3]]
+            elif wordlist[2] in tendict:
+                numlist[7]=1
+                numlist[8]=tendict[wordlist[2]]
+            elif wordlist[2] in unitdict:
+                numlist[8]=unitdict[wordlist[2]]
+            if wordlist[0] in tydict:
+                numlist[7]=tydict[wordlist[0]]
+                if wordlist[1] in unitdict:
+                    numlist[8]=unitdict[wordlist[1]]
+            elif wordlist[0] in tendict:
+                numlist[7]=1
+                numlist[8]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict and not wordlist[1] == "hundred":
+                numlist[8]=unitdict[wordlist[0]]
 
         while True:
             if wordlist[0]== "million":
@@ -117,27 +147,37 @@ def EnglishToInteger(englishNumber: Str) -> int:
             wordlist.pop(0)
 
     #thousands segment
+    k=len(wordlist)
     if "thousand" in englishNumber:
         if wordlist[1] == "hundred":
-            numlist[9]=unitdict[wordlist[0]] #
-        if wordlist[2] in tydict:
-            numlist[10]=tydict[wordlist[2]]
-            if wordlist[3] in unitdict:
-                numlist[11]=unitdict[wordlist[3]]
-        elif wordlist[2] in tendict:
-            numlist[10]=1
-            numlist[11]=tendict[wordlist[2]]
-        elif wordlist[2] in unitdict:
-            numlist[11]=unitdict[wordlist[2]]
-        if wordlist[0] in tydict:
-            numlist[10]=tydict[wordlist[0]]
-            if wordlist[1] in unitdict:
-                numlist[11]=unitdict[wordlist[1]]
-        elif wordlist[0] in tendict:
-            numlist[10]=1
-            numlist[11]=tendict[wordlist[0]]
-        if wordlist[0] in unitdict and not wordlist[1] == "hundred":
-            numlist[11]=unitdict[wordlist[0]]
+            numlist[9]=unitdict[wordlist[0]]
+        if k == 2:
+            if wordlist[0] in tydict:
+                numlist[10]=tydict[wordlist[0]]
+            if wordlist[0] in tendict:
+                numlist[10]=1
+                numlist[11]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict:
+                numlist[11]=unitdict[wordlist[0]]
+        else:
+            if wordlist[2] in tydict:
+                numlist[10]=tydict[wordlist[2]]
+                if wordlist[3] in unitdict:
+                    numlist[11]=unitdict[wordlist[3]]
+            elif wordlist[2] in tendict:
+                numlist[10]=1
+                numlist[11]=tendict[wordlist[2]]
+            elif wordlist[2] in unitdict:
+                numlist[11]=unitdict[wordlist[2]]
+            if wordlist[0] in tydict:
+                numlist[10]=tydict[wordlist[0]]
+                if wordlist[1] in unitdict:
+                    numlist[11]=unitdict[wordlist[1]]
+            elif wordlist[0] in tendict:
+                numlist[10]=1
+                numlist[11]=tendict[wordlist[0]]
+            if wordlist[0] in unitdict and not wordlist[1] == "hundred":
+                numlist[11]=unitdict[wordlist[0]]
 
         while True:
             if wordlist[0]== "thous":
@@ -186,13 +226,17 @@ def EnglishToInteger(englishNumber: Str) -> int:
     print(resultnumber)
     return resultnumber
 
-EnglishToInteger("fourteen billion, six hundred and seven thousand, two hundred and seventy-five")
-EnglishToInteger("nine hundred and fifty-eight trillion, five hundred and twelve billion, two million, six hundred and seven thousand, two hundred and seventy-five")
-EnglishToInteger("seventy-five")
-EnglishToInteger("seventy")
-EnglishToInteger("seventeen")
-EnglishToInteger("five")
-EnglishToInteger("one hundred and seven")
-EnglishToInteger("seventy thousand, and one")
-EnglishToInteger("foursasdf")
-EnglishToInteger("12425")
+EnglishToInteger("four")
+EnglishToInteger("two hundred trillion and seventy-two")
+EnglishToInteger("twenty trillion")
+EnglishToInteger("twenty billion")
+EnglishToInteger("twenty million")
+EnglishToInteger("twenty thousand")
+EnglishToInteger("eleven trillion")
+EnglishToInteger("eleven billion")
+EnglishToInteger("eleven million")
+EnglishToInteger("eleven thousand")
+EnglishToInteger("six trillion")
+EnglishToInteger("six billion")
+EnglishToInteger("six million")
+EnglishToInteger("six thousand")
