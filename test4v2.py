@@ -144,4 +144,4 @@ assert EnglishToInteger("Three thousand one hundred") == 3100
 assert EnglishToInteger("Four hundred thousand and twelve") == 400012
 assert EnglishToInteger("Twenty thousand one hundred and twelve") == 20112
 assert EnglishToInteger("Twenty million one hundred and twelve thousand") == 20112000
-assert EnglishToInteger("Twenty million and twelve thousand") == 20112000
+assert EnglishToInteger("Twenty million and twelve thousand") == 20012000
