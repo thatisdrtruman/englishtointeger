@@ -31,6 +31,18 @@ def EnglishToInteger(englishNumber: Str) -> int:
         print(unitmove, wordlistd, numlistd, engNumLength)
         if wordlistd[1] == "hundred":
             numlistd[0+unitmove]=unitdict[wordlistd[0]]
+            #if something hundred and ... 
+            if wordlistd[2] in tydict:
+                numlistd[1+unitmove]=tydict[wordlistd[2]]
+                if wordlistd[3] in unitdict:
+                    numlistd[2+unitmove]=unitdict[wordlistd[3]]
+            elif wordlistd[2] in tendict:
+                if not wordlistd[1] == largenumber:
+                    numlistd[1+unitmove]=1 
+                    numlistd[2+unitmove]=tendict[wordlistd[2]]
+            elif wordlistd[2] in unitdict:
+                if not wordlistd[1] == largenumber:
+                    numlistd[2+unitmove]=unitdict[wordlistd[2]]
         if engNumLength == 2: # if english Letter number is two words long
             if wordlistd[0] in tydict:
                 numlistd[1+unitmove]=tydict[wordlistd[0]]
@@ -39,18 +51,6 @@ def EnglishToInteger(englishNumber: Str) -> int:
                 numlistd[2+unitmove]=tendict[wordlistd[0]]
             elif wordlistd[0] in unitdict:
                 numlistd[2+unitmove]=unitdict[wordlistd[0]]
-#if something hundred and ... 
-        if wordlistd[2] in tydict:
-            numlistd[1+unitmove]=tydict[wordlistd[2]]
-            if wordlistd[3] in unitdict:
-                numlistd[2+unitmove]=unitdict[wordlistd[3]]
-        elif wordlistd[2] in tendict:
-            if not wordlistd[1] == largenumber:
-                numlistd[1+unitmove]=1 
-                numlistd[2+unitmove]=tendict[wordlistd[2]]
-        elif wordlistd[2] in unitdict:
-            if not wordlistd[1] == largenumber:
-                numlistd[2+unitmove]=unitdict[wordlistd[2]]
 #if zero hundred
         if wordlistd[0] in tydict:
             numlistd[1+unitmove]=tydict[wordlistd[0]]
@@ -145,3 +145,7 @@ assert EnglishToInteger("Four hundred thousand and twelve") == 400012
 assert EnglishToInteger("Twenty thousand one hundred and twelve") == 20112
 assert EnglishToInteger("Twenty million one hundred and twelve thousand") == 20112000
 assert EnglishToInteger("Twenty million and twelve thousand") == 20012000
+assert EnglishToInteger("Twenty million and twenty-five thousand") == 20025000
+assert EnglishToInteger("Twenty million and five thousand") == 20005000
+assert EnglishToInteger("fifteen thousand") == 15000
+assert EnglishToInteger("fifty-two thousand and seven") == 52007
