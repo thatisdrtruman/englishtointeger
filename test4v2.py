@@ -10,10 +10,11 @@ goodword=["hundred", "thousand", "million", "billion", "trillion"]
 for unit in unitdict.keys(): goodword.append(unit)
 for ten in tendict.keys(): goodword.append(ten)
 for ty in tydict.keys(): goodword.append(ty)
+import pytest
 
-def EnglishToInteger(englishNumber: Str) -> int:
+def EnglishToInteger(englishNumber: str) -> int:
     def ValueErrorRaiser():
-        raise ValueError("We can't acceipt this number, have another go")
+        raise ValueError("We can't accept this number, have another go")
 
     def digitPlacer(numlistd, engNumd, wordlistd, largenumber, engNumLength):
         if engNumd in goodword:
@@ -28,8 +29,10 @@ def EnglishToInteger(englishNumber: Str) -> int:
             unitmove=9
         else:
             unitmove=12
-        print(unitmove, wordlistd, numlistd, engNumLength)
+        #print(unitmove, wordlistd, numlistd, engNumLength)
         if wordlistd[1] == "hundred":
+            if wordlistd[0] in tendict or wordlistd[0] in tydict:
+                ValueErrorRaiser()
             numlistd[0+unitmove]=unitdict[wordlistd[0]]
             #if something hundred and ... 
             if wordlistd[2] in tydict:
@@ -99,6 +102,8 @@ def EnglishToInteger(englishNumber: Str) -> int:
     #hundreds segment
     k=len(wordlist)
     if "hundred" in wordlist:
+        if wordlist[0] in tendict or wordlist[0] in tydict:
+                ValueErrorRaiser()
         numlist[12]=unitdict[wordlist[0]]
         if k == 4: #if the numlist is in 4 words: [hundred number], ['hundred'], [ty number], [unit number]
             if wordlist[2] in tydict:
@@ -141,11 +146,37 @@ assert EnglishToInteger("Twenty thousand one hundred and twelve") == 20112
 assert EnglishToInteger("Twenty-seven thousand one hundred") == 27100
 assert EnglishToInteger("Twelve thousand one hundred") == 12100
 assert EnglishToInteger("Three thousand one hundred") == 3100
+assert EnglishToInteger("Three thousand and one") == 3001
+assert EnglishToInteger("Three thousand and nineteen") == 3019
+assert EnglishToInteger("Three thousand and ninety") == 3090
+assert EnglishToInteger("Three thousand and ninety-two") == 3092
+assert EnglishToInteger("Three thousand one hundred") == 3100
+assert EnglishToInteger("Three thousand and one") == 3001
+assert EnglishToInteger("Three thousand and nineteen") == 3019
+assert EnglishToInteger("Three thousand and ninety") == 3090
+assert EnglishToInteger("Three thousand and ninety-two") == 3092
+assert EnglishToInteger("Three") == 3
+assert EnglishToInteger("Ten") == 10
+assert EnglishToInteger("Thirty") == 30
+assert EnglishToInteger("Thirty-seven") == 37
+assert EnglishToInteger("Five hundred") == 500
+assert EnglishToInteger("Five hundred and one") == 501
+assert EnglishToInteger("Five hundred and forty-one") == 541
+assert EnglishToInteger("Five hundred and forty") == 540
+assert EnglishToInteger("Five hundred and fifteen") == 515
 assert EnglishToInteger("Four hundred thousand and twelve") == 400012
 assert EnglishToInteger("Twenty thousand one hundred and twelve") == 20112
 assert EnglishToInteger("Twenty million one hundred and twelve thousand") == 20112000
 assert EnglishToInteger("Twenty million and twelve thousand") == 20012000
 assert EnglishToInteger("Twenty million and twenty-five thousand") == 20025000
 assert EnglishToInteger("Twenty million and five thousand") == 20005000
+assert EnglishToInteger("One hundred and Twenty four million and fifty-five thousand") == 124055000
+assert EnglishToInteger("Eighteen million and five thousand") == 18005000
 assert EnglishToInteger("fifteen thousand") == 15000
 assert EnglishToInteger("fifty-two thousand and seven") == 52007
+assert EnglishToInteger("fifty thousand and ninety") == 50090
+assert EnglishToInteger('nine hundred and ninety-nine trillion, nine hundred and ninety-nine billion, nine hundred and ninety-nine million, nine hundred and ninety-nine thousand, nine hundred and ninety-nine') == 999999999999999
+"""with pytest.raises(TypeError):
+        EnglishToInteger('twelve hundred')"""
+with pytest.raises(TypeError):
+        EnglishToInteger('e23')
